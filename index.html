@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ventas de Videojuegos – Visualizaciones Interactivas</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      background: #f5f5f5;
+      color: #212121;
+      line-height: 1.6;
+    }
+    header {
+      background: #1565C0;
+      color: white;
+      padding: 32px 40px;
+    }
+    header h1 { font-size: 26px; font-weight: 700; margin-bottom: 6px; }
+    header p  { font-size: 14px; opacity: 0.85; }
+    header .meta { margin-top: 12px; font-size: 13px; opacity: 0.75; }
+
+    nav {
+      background: white;
+      border-bottom: 1px solid #e0e0e0;
+      padding: 14px 40px;
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    nav a {
+      text-decoration: none;
+      color: #1565C0;
+      font-size: 13px;
+      font-weight: 500;
+    }
+    nav a:hover { text-decoration: underline; }
+
+    main { max-width: 1100px; margin: 0 auto; padding: 32px 24px; }
+
+    section {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.10);
+      margin-bottom: 36px;
+      overflow: hidden;
+    }
+    .section-header {
+      padding: 20px 28px 16px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .section-header .tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 2px 8px;
+      border-radius: 12px;
+      margin-bottom: 8px;
+    }
+    .tag.uni  { background: #E3F2FD; color: #1565C0; }
+    .tag.bi   { background: #E8F5E9; color: #2E7D32; }
+    .tag.multi{ background: #FFF3E0; color: #E65100; }
+
+    .section-header h2 { font-size: 18px; font-weight: 600; color: #212121; }
+    .section-header p  { font-size: 13px; color: #757575; margin-top: 4px; }
+
+    .chart-area {
+      padding: 24px 28px;
+      display: flex;
+      justify-content: center;
+      background: #fafafa;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .chart-area object { max-width: 100%; }
+
+    .analysis {
+      padding: 20px 28px;
+    }
+    .analysis h3 { font-size: 14px; font-weight: 600; color: #424242; margin-bottom: 8px; }
+    .analysis p  { font-size: 13px; color: #555; margin-bottom: 8px; }
+    .analysis ul { font-size: 13px; color: #555; padding-left: 20px; }
+    .analysis ul li { margin-bottom: 4px; }
+
+    .bloque {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.10);
+      margin-bottom: 36px;
+      padding: 28px;
+    }
+    .bloque h2 { font-size: 20px; font-weight: 600; margin-bottom: 12px; color: #1565C0; }
+    .bloque p  { font-size: 14px; color: #555; margin-bottom: 10px; }
+    .bloque ul { font-size: 14px; color: #555; padding-left: 20px; margin-top: 8px; }
+    .bloque ul li { margin-bottom: 8px; }
+
+    footer {
+      text-align: center;
+      padding: 24px;
+      font-size: 12px;
+      color: #9E9E9E;
+      border-top: 1px solid #e0e0e0;
+      background: white;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Ventas Globales de Videojuegos — Visualizaciones Interactivas</h1>
+  <p>Análisis de datos de ventas mundiales de videojuegos por género, plataforma, región y año</p>
+  <div class="meta">
+    Arturo &nbsp;·&nbsp; Carné: 2024181232 &nbsp;·&nbsp;
+    Visualización de Información &nbsp;·&nbsp; Tecnológico de Costa Rica &nbsp;·&nbsp; 2024
+  </div>
+</header>
+
+<nav>
+  <a href="#intro">Introducción</a>
+  <a href="#grafica1">Gráfica 1</a>
+  <a href="#grafica2">Gráfica 2</a>
+  <a href="#grafica3">Gráfica 3</a>
+  <a href="#grafica4">Gráfica 4</a>
+  <a href="#grafica5">Gráfica 5</a>
+  <a href="#grafica6">Gráfica 6</a>
+  <a href="#conclusiones">Conclusiones</a>
+</nav>
+
+<main>
+
+  <!-- INTRODUCCIÓN -->
+  <div class="bloque" id="intro">
+    <h2>Introducción</h2>
+    <p>
+      Esta página presenta un análisis interactivo de datos de ventas globales de videojuegos
+      obtenidos de <strong>VGChartz</strong>. El conjunto de datos cubre cifras de ventas
+      (en millones de unidades) para las principales plataformas y géneros, segmentadas por
+      región geográfica: Norteamérica, Europa y Japón.
+    </p>
+    <p>
+      Todas las visualizaciones están implementadas como <strong>archivos SVG en formato
+      ODViz (Open Data Visualization)</strong>, que embebe los datos directamente dentro de
+      cada imagen SVG. Esto permite interactividad al pasar el cursor sobre los elementos visuales,
+      los cuales están enlazados bidireccionalmente con sus filas de datos correspondientes.
+    </p>
+
+    <h2 style="margin-top:20px;">Descripción del problema</h2>
+    <p>
+      La industria de los videojuegos genera datos masivos de ventas en múltiples dimensiones:
+      género, región, plataforma y año. Comprender qué géneros dominan, cómo difieren las
+      preferencias regionales y cómo evolucionó el mercado requiere visualización multidimensional.
+      Este proyecto busca responder esas preguntas mediante seis gráficas interactivas.
+    </p>
+
+    <h2 style="margin-top:20px;">Fuente de datos</h2>
+    <p>
+      Base de datos de ventas globales de VGChartz. Datos agregados por género y región
+      para el período 2000–2013. Las ventas están expresadas en millones de unidades físicas vendidas.
+    </p>
+  </div>
+
+  <!-- GRÁFICA 1 -->
+  <section id="grafica1">
+    <div class="section-header">
+      <span class="tag uni">Unidimensional</span>
+      <h2>1. Ventas por Género — Gráfica de Barras</h2>
+      <p>Distribución del total de ventas globales entre los ocho géneros principales de videojuegos</p>
+    </div>
+    <div class="chart-area">
+      <object type="image/svg+xml" data="grafica1_barras.svg" width="720" height="480">
+        <img src="grafica1_barras.svg" alt="Gráfica de barras: ventas por género"/>
+      </object>
+    </div>
+    <div class="analysis">
+      <h3>Análisis</h3>
+      <p>
+        Esta gráfica de barras muestra el total de ventas globales (en millones de unidades)
+        para cada género principal de videojuego. Es una visualización unidimensional donde
+        la única variable analizada son las ventas totales, distribuidas entre géneros.
+      </p>
+      <ul>
+        <li><strong>Acción</strong> domina con 481.8 millones de unidades, casi el 28% del total analizado.</li>
+        <li><strong>Deportes</strong> y <strong>Shooter</strong> ocupan el segundo y tercer lugar respectivamente.</li>
+        <li>Existe una caída notable después de los tres primeros: RPG, Plataforma y Misceláneos forman un grupo intermedio alrededor de 193–205 millones.</li>
+        <li><strong>Carreras</strong> y <strong>Peleas</strong> están empatados en 105.5 millones, aproximadamente la mitad del volumen de Acción.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- GRÁFICA 2 -->
+  <section id="grafica2">
+    <div class="section-header">
+      <span class="tag uni">Unidimensional</span>
+      <h2>2. Participación de Mercado por Plataforma — Gráfica de Pastel</h2>
+      <p>Distribución proporcional de ventas entre las principales plataformas de videojuegos</p>
+    </div>
+    <div class="chart-area">
+      <object type="image/svg+xml" data="grafica2_pastel.svg" width="720" height="480">
+        <img src="grafica2_pastel.svg" alt="Gráfica de pastel: participación por plataforma"/>
+      </object>
+    </div>
+    <div class="analysis">
+      <h3>Análisis</h3>
+      <p>
+        La gráfica de pastel muestra el porcentaje de participación de mercado para cada
+        plataforma principal. Es una visualización unidimensional de la variable nominal
+        "plataforma" medida por proporción del total de ventas.
+      </p>
+      <ul>
+        <li><strong>PS2</strong> lidera con el 22.3% del total, reflejando su excepcional biblioteca de 12 años.</li>
+        <li><strong>Xbox 360, PS3 y Wii</strong> forman un grupo entre 16–17%, indicando una generación altamente competitiva.</li>
+        <li>La portátil <strong>DS</strong> representa el 14.3%, mostrando la relevancia de los videojuegos portátiles.</li>
+        <li>Ninguna plataforma supera el 25%, lo que sugiere un mercado fragmentado pero competitivo.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- GRÁFICA 3 -->
+  <section id="grafica3">
+    <div class="section-header">
+      <span class="tag uni">Unidimensional</span>
+      <h2>3. Ventas por Año de Lanzamiento — Histograma</h2>
+      <p>Evolución anual del volumen de ventas globales de videojuegos entre 2000 y 2013</p>
+    </div>
+    <div class="chart-area">
+      <object type="image/svg+xml" data="grafica3_histograma.svg" width="720" height="480">
+        <img src="grafica3_histograma.svg" alt="Histograma: ventas por año"/>
+      </object>
+    </div>
+    <div class="analysis">
+      <h3>Análisis</h3>
+      <p>
+        Este histograma visualiza cómo cambiaron las ventas globales totales año a año para
+        juegos lanzados entre 2000 y 2013. Muestra la distribución de una sola variable
+        cuantitativa (ventas) a lo largo de la dimensión ordinal del tiempo.
+      </p>
+      <ul>
+        <li>Las ventas crecieron <strong>de forma sostenida desde 2000 hasta 2007</strong>, alcanzando un pico de 332.1 millones.</li>
+        <li><strong>2007–2008</strong> representa la era dorada, coincidiendo con el Wii, Xbox 360 y PS3 en su máximo apogeo.</li>
+        <li>Se observa un <strong>descenso consistente de 2009 a 2013</strong>, reflejando la transición hacia distribución digital y gaming móvil.</li>
+        <li>La cifra de 2013 (55.2M) parece baja ya que solo captura ventas físicas antes del cambio generacional.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- GRÁFICA 4 -->
+  <section id="grafica4">
+    <div class="section-header">
+      <span class="tag bi">Bidimensional</span>
+      <h2>4. Ventas Norteamérica vs Europa — Gráfica de Dispersión</h2>
+      <p>Relación entre ventas en NA y UE por género de videojuego</p>
+    </div>
+    <div class="chart-area">
+      <object type="image/svg+xml" data="grafica4_dispersion.svg" width="720" height="500">
+        <img src="grafica4_dispersion.svg" alt="Gráfica de dispersión: NA vs Europa"/>
+      </object>
+    </div>
+    <div class="analysis">
+      <h3>Análisis</h3>
+      <p>
+        La gráfica de dispersión muestra la relación entre dos variables cuantitativas:
+        ventas en Norteamérica (eje X) y ventas en Europa (eje Y), donde cada punto
+        representa un género. La línea diagonal punteada indica ventas iguales en ambas regiones.
+      </p>
+      <ul>
+        <li><strong>Acción, Deportes y Shooter</strong> están claramente por encima de la diagonal — Norteamérica domina estos géneros.</li>
+        <li><strong>RPG</strong> es la excepción notable: cae <em>por encima</em> de la diagonal, lo que significa que Europa y Japón superan a NA, reflejando preferencia cultural por juegos narrativos.</li>
+        <li><strong>Carreras</strong> se sitúa cerca de la diagonal, indicando un atractivo equilibrado entre NA y Europa.</li>
+        <li><strong>Estrategia y Simulación</strong> tienen ventas modestas pero relativamente equilibradas entre regiones.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- GRÁFICA 5 -->
+  <section id="grafica5">
+    <div class="section-header">
+      <span class="tag bi">Bidimensional</span>
+      <h2>5. Ventas por Género y Región — Barras Agrupadas</h2>
+      <p>Comparación de ventas en Norteamérica, Europa y Japón para los cinco géneros principales</p>
+    </div>
+    <div class="chart-area">
+      <object type="image/svg+xml" data="grafica5_barras_agrupadas.svg" width="760" height="480">
+        <img src="grafica5_barras_agrupadas.svg" alt="Barras agrupadas: género por región"/>
+      </object>
+    </div>
+    <div class="analysis">
+      <h3>Análisis</h3>
+      <p>
+        Esta gráfica de barras agrupadas representa dos variables categóricas simultáneamente:
+        género (grupos) y región (color de barra dentro de cada grupo). Revela cómo las
+        preferencias regionales influyen en las ventas por categoría de género.
+      </p>
+      <ul>
+        <li><strong>Norteamérica (azul)</strong> lidera en Acción, Deportes y Shooter por un amplio margen.</li>
+        <li><strong>Japón (rojo)</strong> es más fuerte en RPG, casi igualando a Europa — un patrón cultural consistente con la popularidad de Final Fantasy y Dragon Quest.</li>
+        <li><strong>Shooter</strong> muestra el sesgo regional más extremo: NA con 202.5M frente al casi nulo 3.2M de Japón.</li>
+        <li>Los juegos de <strong>Plataforma</strong> son los más equilibrados geográficamente entre los géneros principales.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- GRÁFICA 6 -->
+  <section id="grafica6">
+    <div class="section-header">
+      <span class="tag multi">Multidimensional</span>
+      <h2>6. Análisis Multidimensional — Gráfica de Burbujas</h2>
+      <p>Cinco variables simultáneas: ventas NA, ventas UE, ventas totales, género y año pico</p>
+    </div>
+    <div class="chart-area">
+      <object type="image/svg+xml" data="grafica6_burbujas.svg" width="760" height="520">
+        <img src="grafica6_burbujas.svg" alt="Gráfica de burbujas: análisis multidimensional"/>
+      </object>
+    </div>
+    <div class="analysis">
+      <h3>Análisis</h3>
+      <p>
+        La gráfica de burbujas codifica <strong>cinco variables simultáneamente</strong>:
+        ventas en NA (eje X), ventas en Europa (eje Y), ventas globales totales (tamaño de burbuja),
+        género (color y etiqueta) y año pico (texto dentro de la burbuja).
+      </p>
+      <ul>
+        <li><strong>Acción</strong> ocupa la esquina superior derecha con la burbuja más grande: alto en NA y Europa, y las mayores ventas totales.</li>
+        <li><strong>RPG</strong> muestra una posición contrastante: bajas ventas en NA pero altas en Europa, con su pico en el año 2000 — la era temprana del PS2.</li>
+        <li><strong>Shooter</strong> alcanzó su pico en 2008, coincidiendo con el impacto cultural de Call of Duty: Modern Warfare.</li>
+        <li>Los géneros con burbujas pequeñas (Estrategia, Simulación, Peleas) se agrupan en la esquina inferior izquierda, confirmando su carácter de nicho global.</li>
+        <li>La gráfica revela que NA es el principal impulsor de las ventas globales totales para la mayoría de géneros, con la notable excepción del RPG.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- CONCLUSIONES -->
+  <div class="bloque" id="conclusiones">
+    <h2>Conclusiones</h2>
+    <p>
+      El análisis de ventas globales de videojuegos revela varios patrones consistentes
+      en las seis visualizaciones:
+    </p>
+    <ul>
+      <li><strong>Acción domina globalmente</strong>, pero esto está impulsado principalmente por la demanda norteamericana. El liderazgo del género es estructural en todos los tipos de gráficas.</li>
+      <li><strong>Existen fuertes preferencias regionales</strong>: Japón favorece los RPG, Norteamérica favorece los Shooters y Europa muestra interés más equilibrado. Ningún género tiene atractivo uniforme en todo el mundo.</li>
+      <li><strong>El mercado alcanzó su punto máximo en 2007–2008</strong>, impulsado por el atractivo masivo del Wii y la madurez de las bibliotecas de Xbox 360 y PS3.</li>
+      <li><strong>La concentración por plataforma es moderada</strong>: las seis principales plataformas se reparten el mercado de forma bastante equitativa (14–22% cada una), lo que sugiere competencia saludable.</li>
+      <li>La gráfica de burbujas confirma que <strong>las altas ventas totales requieren un buen desempeño en NA</strong>, siendo el RPG la principal excepción, impulsada por Japón.</li>
+    </ul>
+
+    <h2 style="margin-top:20px;">Referencias</h2>
+    <p>VGChartz Global Sales Database — <a href="https://www.vgchartz.com" style="color:#1565C0;">www.vgchartz.com</a></p>
+    <p>ODViz Open Data Visualization Specification — <a href="https://odviz.org" style="color:#1565C0;">odviz.org</a></p>
+  </div>
+
+</main>
+
+<footer>
+  Arturo &nbsp;·&nbsp; 2024181232 &nbsp;·&nbsp; Visualización de Información &nbsp;·&nbsp; TEC 2024
+  &nbsp;|&nbsp; Datos: VGChartz &nbsp;|&nbsp; Formato: ODViz 1.0
+</footer>
+
+</body>
+</html>
