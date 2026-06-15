@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     xmlns:v="https://odviz.org/1.0/"
+     width="720" height="480" viewBox="0 0 720 480">
+
+  <metadata>
+    <v:table name="ventas_plataforma"
+             description="Video game sales market share by platform (millions of units)"
+             visualization="chart"
+             version="1.0"
+             created="2024-06-01T00:00:00Z"
+             author="Arturo - 2024181232"
+             source="VGChartz"
+             columns="id,platform,sales_m,percentage,color">
+
+      <v:statistics>
+        <v:total column="sales_m">1820.0</v:total>
+      </v:statistics>
+
+      <v:row id="row-0" hrefs="slice-0,leg-0">0,PS2,1255.8,22.3,#2196F3</v:row>
+      <v:row id="row-1" hrefs="slice-1,leg-1">1,Xbox 360,979.0,17.4,#4CAF50</v:row>
+      <v:row id="row-2" hrefs="slice-2,leg-2">2,PS3,957.8,17.0,#FF9800</v:row>
+      <v:row id="row-3" hrefs="slice-3,leg-3">3,Wii,915.5,16.3,#9C27B0</v:row>
+      <v:row id="row-4" hrefs="slice-4,leg-4">4,DS,806.1,14.3,#F44336</v:row>
+      <v:row id="row-5" hrefs="slice-5,leg-5">5,Other,728.8,12.7,#607D8B</v:row>
+    </v:table>
+  </metadata>
+
+  <rect width="720" height="480" fill="#ffffff"/>
+
+  <text x="360" y="36" text-anchor="middle" font-family="Arial,sans-serif"
+        font-size="18" font-weight="bold" fill="#212121">
+    Video Game Sales Market Share by Platform
+  </text>
+  <text x="360" y="56" text-anchor="middle" font-family="Arial,sans-serif"
+        font-size="12" fill="#757575">Percentage of total global sales</text>
+
+  <!--
+    Pie center: cx=250, cy=270, r=180
+    Angles cumulative (degrees → radians):
+    PS2:    0   → 80.3°   (22.3%)
+    X360:  80.3 → 143.0°  (17.4%)
+    PS3:  143.0 → 204.3°  (17.0%)
+    Wii:  204.3 → 263.0°  (16.3%)
+    DS:   263.0 → 314.5°  (14.3%)
+    Other:314.5 → 360°    (12.7% + rounding)
+
+    Using large-arc-flag and sweep-flag=1
+    Coordinates pre-calculated:
+  -->
+
+  <!-- PS2: 0° to 80.28° -->
+  <path id="slice-0" href="#row-0"
+        d="M250,270 L250,90 A180,180 0 0,1 427.3,183.5 Z"
+        fill="#2196F3" stroke="white" stroke-width="2"/>
+
+  <!-- Xbox360: 80.28° to 143.0° -->
+  <path id="slice-1" href="#row-1"
+        d="M250,270 L427.3,183.5 A180,180 0 0,1 394.4,424.2 Z"
+        fill="#4CAF50" stroke="white" stroke-width="2"/>
+
+  <!-- PS3: 143.0° to 204.2° -->
+  <path id="slice-2" href="#row-2"
+        d="M250,270 L394.4,424.2 A180,180 0 0,1 85.2,378.3 Z"
+        fill="#FF9800" stroke="white" stroke-width="2"/>
+
+  <!-- Wii: 204.2° to 262.8° -->
+  <path id="slice-3" href="#row-3"
+        d="M250,270 L85.2,378.3 A180,180 0 0,1 92.7,157.9 Z"
+        fill="#9C27B0" stroke="white" stroke-width="2"/>
+
+  <!-- DS: 262.8° to 314.3° -->
+  <path id="slice-4" href="#row-4"
+        d="M250,270 L92.7,157.9 A180,180 0 0,1 196.2,92.1 Z"
+        fill="#F44336" stroke="white" stroke-width="2"/>
+
+  <!-- Other: 314.3° to 360° -->
+  <path id="slice-5" href="#row-5"
+        d="M250,270 L196.2,92.1 A180,180 0 0,1 250,90 Z"
+        fill="#607D8B" stroke="white" stroke-width="2"/>
+
+  <!-- Legend -->
+  <g font-family="Arial,sans-serif" font-size="13" fill="#212121">
+    <rect id="leg-0" href="#row-0" x="490" y="130" width="18" height="18" fill="#2196F3" rx="3"/>
+    <text x="516" y="144">PS2 — 22.3%</text>
+
+    <rect id="leg-1" href="#row-1" x="490" y="162" width="18" height="18" fill="#4CAF50" rx="3"/>
+    <text x="516" y="176">Xbox 360 — 17.4%</text>
+
+    <rect id="leg-2" href="#row-2" x="490" y="194" width="18" height="18" fill="#FF9800" rx="3"/>
+    <text x="516" y="208">PS3 — 17.0%</text>
+
+    <rect id="leg-3" href="#row-3" x="490" y="226" width="18" height="18" fill="#9C27B0" rx="3"/>
+    <text x="516" y="240">Wii — 16.3%</text>
+
+    <rect id="leg-4" href="#row-4" x="490" y="258" width="18" height="18" fill="#F44336" rx="3"/>
+    <text x="516" y="272">DS — 14.3%</text>
+
+    <rect id="leg-5" href="#row-5" x="490" y="290" width="18" height="18" fill="#607D8B" rx="3"/>
+    <text x="516" y="304">Other — 12.7%</text>
+  </g>
+
+  <text x="700" y="470" text-anchor="end" font-family="Arial,sans-serif"
+        font-size="9" fill="#bdbdbd">Source: VGChartz</text>
+</svg>

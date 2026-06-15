@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     xmlns:v="https://odviz.org/1.0/"
+     width="720" height="480" viewBox="0 0 720 480">
+
+  <metadata>
+    <v:table name="ventas_genero"
+             description="Global video game sales by genre (millions of units)"
+             visualization="chart"
+             version="1.0"
+             created="2024-06-01T00:00:00Z"
+             author="Arturo - 2024181232"
+             source="VGChartz"
+             columns="id,genre,sales_m,color">
+
+      <v:statistics>
+        <v:total column="sales_m">1742.5</v:total>
+        <v:average column="sales_m">193.6</v:average>
+        <v:max column="sales_m">481.8</v:max>
+        <v:min column="sales_m">105.5</v:min>
+      </v:statistics>
+
+      <v:row id="row-0" hrefs="bar-0,label-0,val-0">0,Action,481.8,#2196F3</v:row>
+      <v:row id="row-1" hrefs="bar-1,label-1,val-1">1,Sports,300.1,#4CAF50</v:row>
+      <v:row id="row-2" hrefs="bar-2,label-2,val-2">2,Shooter,261.8,#FF9800</v:row>
+      <v:row id="row-3" hrefs="bar-3,label-3,val-3">3,Role-Playing,205.6,#9C27B0</v:row>
+      <v:row id="row-4" hrefs="bar-4,label-4,val-4">4,Platform,200.2,#F44336</v:row>
+      <v:row id="row-5" hrefs="bar-5,label-5,val-5">5,Misc,193.6,#00BCD4</v:row>
+      <v:row id="row-6" hrefs="bar-6,label-6,val-6">6,Racing,105.5,#FF5722</v:row>
+      <v:row id="row-7" hrefs="bar-7,label-7,val-7">7,Fighting,105.5,#607D8B</v:row>
+    </v:table>
+  </metadata>
+
+  <!-- Background -->
+  <rect width="720" height="480" fill="#ffffff"/>
+
+  <!-- Title -->
+  <text x="360" y="36" text-anchor="middle" font-family="Arial,sans-serif"
+        font-size="18" font-weight="bold" fill="#212121">
+    Global Video Game Sales by Genre
+  </text>
+  <text x="360" y="56" text-anchor="middle" font-family="Arial,sans-serif"
+        font-size="12" fill="#757575">
+    Total units sold worldwide (millions)
+  </text>
+
+  <!-- Y axis label -->
+  <text x="18" y="260" text-anchor="middle" font-family="Arial,sans-serif"
+        font-size="11" fill="#555" transform="rotate(-90,18,260)">Sales (millions)</text>
+
+  <!-- Grid lines -->
+  <g stroke="#e0e0e0" stroke-width="1">
+    <line x1="80" y1="380" x2="680" y2="380"/>
+    <line x1="80" y1="300" x2="680" y2="300"/>
+    <line x1="80" y1="220" x2="680" y2="220"/>
+    <line x1="80" y1="140" x2="680" y2="140"/>
+    <line x1="80" y1="100" x2="680" y2="100"/>
+  </g>
+  <!-- Grid labels -->
+  <g font-family="Arial,sans-serif" font-size="10" fill="#757575" text-anchor="end">
+    <text x="72" y="383">0</text>
+    <text x="72" y="303">100</text>
+    <text x="72" y="223">200</text>
+    <text x="72" y="143">300</text>
+    <text x="72" y="103">400</text>
+  </g>
+
+  <!-- Axes -->
+  <line x1="80" y1="80" x2="80" y2="380" stroke="#424242" stroke-width="2"/>
+  <line x1="80" y1="380" x2="680" y2="380" stroke="#424242" stroke-width="2"/>
+
+  <!-- Bars: scale = 0.8px per unit, base y=380 -->
+  <!-- Action 481.8 → h=385.4 → capped to 280 (y=100) -->
+  <rect id="bar-0" href="#row-0" x="88"  y="96"  width="60" height="284" fill="#2196F3" rx="3"/>
+  <rect id="bar-1" href="#row-1" x="168" y="140" width="60" height="240" fill="#4CAF50" rx="3"/>
+  <rect id="bar-2" href="#row-2" x="248" y="171" width="60" height="209" fill="#FF9800" rx="3"/>
+  <rect id="bar-3" href="#row-3" x="328" y="215" width="60" height="165" fill="#9C27B0" rx="3"/>
+  <rect id="bar-4" href="#row-4" x="408" y="220" width="60" height="160" fill="#F44336" rx="3"/>
+  <rect id="bar-5" href="#row-5" x="488" y="225" width="60" height="155" fill="#00BCD4" rx="3"/>
+  <rect id="bar-6" href="#row-6" x="568" y="296" width="60" height="84"  fill="#FF5722" rx="3"/>
+  <rect id="bar-7" href="#row-7" x="648" y="296" width="60" height="84"  fill="#607D8B" rx="3"/>
+
+  <!-- Value labels on top of bars -->
+  <g font-family="Arial,sans-serif" font-size="11" text-anchor="middle" font-weight="bold">
+    <text id="val-0" href="#row-0" x="118" y="90"  fill="#2196F3">481.8</text>
+    <text id="val-1" href="#row-1" x="198" y="134" fill="#4CAF50">300.1</text>
+    <text id="val-2" href="#row-2" x="278" y="165" fill="#FF9800">261.8</text>
+    <text id="val-3" href="#row-3" x="358" y="209" fill="#9C27B0">205.6</text>
+    <text id="val-4" href="#row-4" x="438" y="214" fill="#F44336">200.2</text>
+    <text id="val-5" href="#row-5" x="518" y="219" fill="#00BCD4">193.6</text>
+    <text id="val-6" href="#row-6" x="598" y="290" fill="#FF5722">105.5</text>
+    <text id="val-7" href="#row-7" x="678" y="290" fill="#607D8B">105.5</text>
+  </g>
+
+  <!-- X-axis labels -->
+  <g font-family="Arial,sans-serif" font-size="10" text-anchor="middle" fill="#424242">
+    <text id="label-0" href="#row-0" x="118" y="396">Action</text>
+    <text id="label-1" href="#row-1" x="198" y="396">Sports</text>
+    <text id="label-2" href="#row-2" x="278" y="396">Shooter</text>
+    <text id="label-3" href="#row-3" x="358" y="396">RPG</text>
+    <text id="label-4" href="#row-4" x="438" y="396">Platform</text>
+    <text id="label-5" href="#row-5" x="518" y="396">Misc</text>
+    <text id="label-6" href="#row-6" x="598" y="396">Racing</text>
+    <text id="label-7" href="#row-7" x="678" y="396">Fighting</text>
+  </g>
+
+  <!-- Source -->
+  <text x="700" y="470" text-anchor="end" font-family="Arial,sans-serif"
+        font-size="9" fill="#bdbdbd">Source: VGChartz</text>
+
+</svg>

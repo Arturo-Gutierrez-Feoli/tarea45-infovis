@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Video Game Sales – Interactive Visualizations</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      background: #f5f5f5;
+      color: #212121;
+      line-height: 1.6;
+    }
+
+    header {
+      background: #1565C0;
+      color: white;
+      padding: 32px 40px;
+    }
+    header h1 { font-size: 26px; font-weight: 700; margin-bottom: 6px; }
+    header p  { font-size: 14px; opacity: 0.85; }
+    header .meta { margin-top: 12px; font-size: 13px; opacity: 0.75; }
+
+    nav {
+      background: white;
+      border-bottom: 1px solid #e0e0e0;
+      padding: 14px 40px;
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    nav a {
+      text-decoration: none;
+      color: #1565C0;
+      font-size: 13px;
+      font-weight: 500;
+    }
+    nav a:hover { text-decoration: underline; }
+
+    main { max-width: 1100px; margin: 0 auto; padding: 32px 24px; }
+
+    section {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.10);
+      margin-bottom: 36px;
+      overflow: hidden;
+    }
+    .section-header {
+      padding: 20px 28px 16px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .section-header .tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 2px 8px;
+      border-radius: 12px;
+      margin-bottom: 8px;
+    }
+    .tag.uni  { background: #E3F2FD; color: #1565C0; }
+    .tag.bi   { background: #E8F5E9; color: #2E7D32; }
+    .tag.multi{ background: #FFF3E0; color: #E65100; }
+
+    .section-header h2 { font-size: 18px; font-weight: 600; color: #212121; }
+    .section-header p  { font-size: 13px; color: #757575; margin-top: 4px; }
+
+    .chart-area {
+      padding: 24px 28px;
+      display: flex;
+      justify-content: center;
+      background: #fafafa;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .chart-area svg {
+      max-width: 100%;
+      height: auto;
+    }
+    /* ODViz interactivity: highlight on hover */
+    .chart-area svg [href]:hover,
+    .chart-area svg [data-href]:hover {
+      filter: brightness(1.15) drop-shadow(0 2px 6px rgba(0,0,0,0.25));
+      cursor: pointer;
+    }
+
+    .analysis {
+      padding: 20px 28px;
+    }
+    .analysis h3 { font-size: 14px; font-weight: 600; color: #424242; margin-bottom: 8px; }
+    .analysis p  { font-size: 13px; color: #555; margin-bottom: 8px; }
+    .analysis ul { font-size: 13px; color: #555; padding-left: 20px; }
+    .analysis ul li { margin-bottom: 4px; }
+
+    .intro-section {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.10);
+      margin-bottom: 36px;
+      padding: 28px;
+    }
+    .intro-section h2 { font-size: 20px; font-weight: 600; margin-bottom: 12px; color: #1565C0; }
+    .intro-section p  { font-size: 14px; color: #555; margin-bottom: 10px; }
+
+    .data-table {
+      overflow-x: auto;
+      padding: 0 28px 20px;
+    }
+    table { border-collapse: collapse; font-size: 12px; width: 100%; }
+    th { background: #F5F5F5; padding: 8px 12px; text-align: left;
+         font-weight: 600; border-bottom: 2px solid #e0e0e0; color: #424242; }
+    td { padding: 7px 12px; border-bottom: 1px solid #f0f0f0; color: #555; }
+    tr:hover td { background: #fafafa; }
+
+    footer {
+      text-align: center;
+      padding: 24px;
+      font-size: 12px;
+      color: #9E9E9E;
+      border-top: 1px solid #e0e0e0;
+      margin-top: 8px;
+      background: white;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Global Video Game Sales — Interactive Visualizations</h1>
+  <p>Analysis of worldwide video game sales data by genre, platform, region and year</p>
+  <div class="meta">
+    Arturo &nbsp;·&nbsp; Carnet: 2024181232 &nbsp;·&nbsp;
+    Visualización de Información &nbsp;·&nbsp; Tecnológico de Costa Rica &nbsp;·&nbsp; 2024
+  </div>
+</header>
+
+<nav>
+  <a href="#intro">Introduction</a>
+  <a href="#chart1">Bar Chart</a>
+  <a href="#chart2">Pie Chart</a>
+  <a href="#chart3">Histogram</a>
+  <a href="#chart4">Scatter Plot</a>
+  <a href="#chart5">Grouped Bars</a>
+  <a href="#chart6">Bubble Chart</a>
+  <a href="#conclusions">Conclusions</a>
+</nav>
+
+<main>
+
+  <!-- INTRODUCTION -->
+  <div class="intro-section" id="intro">
+    <h2>Introduction</h2>
+    <p>
+      This page presents an interactive analysis of global video game sales data sourced from
+      <strong>VGChartz</strong>. The dataset covers sales figures (in millions of units) across
+      major gaming platforms and genres, segmented by geographic region: North America, Europe,
+      and Japan.
+    </p>
+    <p>
+      All visualizations are implemented as <strong>SVG files using the ODViz (Open Data Visualization)
+      format</strong>, which embeds the underlying data directly within each SVG image. This enables
+      interactive features such as hover highlighting and bidirectional linking between visual elements
+      and their corresponding data rows.
+    </p>
+    <p><strong>Problem:</strong> The video game industry generates massive sales data across multiple
+    dimensions (genre, region, platform, year). Understanding which genres dominate, how regional
+    preferences differ, and how the market evolved over time requires multi-dimensional visualization.</p>
+
+    <h3 style="margin-top:16px; font-size:15px; color:#424242;">Data Source</h3>
+    <p>VGChartz global sales database. Data aggregated by genre and region for the period 2000–2013.</p>
+  </div>
+
+  <!-- CHART 1: Bar chart -->
+  <section id="chart1">
+    <div class="section-header">
+      <span class="tag uni">Unidimensional</span>
+      <h2>1. Sales by Genre — Bar Chart</h2>
+      <p>Distribution of total global sales across eight major game genres</p>
+    </div>
+    <div class="chart-area">
+      <object type="image/svg+xml" data="grafica1_barras.svg" width="720" height="480">
+        <img src="grafica1_barras.svg" alt="Bar chart: sales by genre"/>
+      </object>
+    </div>
+    <div class="analysis">
+      <h3>Analysis</h3>
+      <p>
+        This bar chart shows the total global sales (in millions of units) for each major video game
+        genre. It is a unidimensional visualization — the only variable being analyzed is total sales,
+        distributed across the nominal category of genre.
+      </p>
+      <ul>
+        <li><strong>Action</strong> dominates with 481.8M units, nearly 28% of all sales analyzed.</li>
+        <li><strong>Sports</strong> and <strong>Shooter</strong> follow as the second and third largest genres.</li>
+        <li>There is a notable drop after the top three: RPG, Platform and Misc form a mid-tier cluster around 193–205M.</li>
+        <li><strong>Racing</strong> and <strong>Fighting</strong> are tied at 105.5M, roughly half of Action's volume.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- CHART 2: Pie -->
+  <section id="chart2">
+    <div class="section-header">
+      <span class="tag uni">Unidimensional</span>
+      <h2>2. Market Share by Platform — Pie Chart</h2>
+      <p>Proportional distribution of sales across major gaming platforms</p>
+    </div>
+    <div class="chart-area">
+      <object type="image/svg+xml" data="grafica2_pastel.svg" width="720" height="480">
+        <img src="grafica2_pastel.svg" alt="Pie chart: market share by platform"/>
+      </object>
+    </div>
+    <div class="analysis">
+      <h3>Analysis</h3>
+      <p>
+        The pie chart displays the market share percentage for each major platform. This is a
+        unidimensional visualization of the nominal variable "platform" measured by proportion of total sales.
+      </p>
+      <ul>
+        <li><strong>PS2</strong> leads with 22.3% of total sales, reflecting its exceptional 12-year library.</li>
+        <li><strong>Xbox 360, PS3 and Wii</strong> form a cluster between 16–17%, indicating a highly competitive generation.</li>
+        <li>The <strong>DS</strong> handheld accounts for 14.3%, showing the relevance of portable gaming.</li>
+        <li>No single platform captures more than 25%, suggesting a fragmented but competitive market.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- CHART 3: Histogram -->
+  <section id="chart3">
+    <div class="section-header">
+      <span class="tag uni">Unidimensional</span>
+      <h2>3. Sales by Year of Release — Histogram</h2>
+      <p>Annual evolution of global video game sales volume from 2000 to 2013</p>
+    </div>
+    <div class="chart-area">
+      <object type="image/svg+xml" data="grafica3_histograma.svg" width="720" height="480">
+        <img src="grafica3_histograma.svg" alt="Histogram: sales by year"/>
+      </object>
+    </div>
+    <div class="analysis">
+      <h3>Analysis</h3>
+      <p>
+        This histogram visualizes how total global sales changed year by year for games released
+        between 2000 and 2013. It shows the distribution of a single quantitative variable (sales)
+        over the ordinal dimension of time.
+      </p>
+      <ul>
+        <li>Sales grew <strong>steadily from 2000 to 2007</strong>, peaking at 332.1M units.</li>
+        <li><strong>2007–2008</strong> represent the golden era, coinciding with the Wii, Xbox 360 and PS3 being at peak popularity.</li>
+        <li>A <strong>consistent decline from 2009 to 2013</strong> reflects the market transitioning toward digital distribution and mobile gaming.</li>
+        <li>The 2013 figure (55.2M) appears low as it only captures physical retail data before the generation shifted.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- CHART 4: Scatter -->
+  <section id="chart4">
+    <div class="section-header">
+      <span class="tag bi">Bidimensional</span>
+      <h2>4. North America vs Europe Sales — Scatter Plot</h2>
+      <p>Relationship between NA and EU sales across genres</p>
+    </div>
+    <div class="chart-area">
+      <object type="image/svg+xml" data="grafica4_dispersion.svg" width="720" height="500">
+        <img src="grafica4_dispersion.svg" alt="Scatter plot: NA vs EU sales"/>
+      </object>
+    </div>
+    <div class="analysis">
+      <h3>Analysis</h3>
+      <p>
+        The scatter plot shows the relationship between two quantitative variables: North America sales
+        (X axis) and Europe sales (Y axis), with each point representing a genre. The dashed diagonal
+        represents equal sales in both regions.
+      </p>
+      <ul>
+        <li><strong>Action, Sports and Shooter</strong> are clearly above the diagonal — North America dominates these genres.</li>
+        <li><strong>RPG</strong> is the notable exception: it falls <em>above</em> the diagonal, meaning Europe and Japan outperform NA, suggesting cultural preference for narrative-driven games.</li>
+        <li><strong>Racing</strong> sits close to the diagonal, indicating balanced appeal between NA and EU.</li>
+        <li><strong>Strategy and Simulation</strong> have modest but relatively balanced sales between regions.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- CHART 5: Grouped bars -->
+  <section id="chart5">
+    <div class="section-header">
+      <span class="tag bi">Bidimensional</span>
+      <h2>5. Sales by Genre and Region — Grouped Bar Chart</h2>
+      <p>Comparison of NA, EU and Japan sales for the top five genres</p>
+    </div>
+    <div class="chart-area">
+      <object type="image/svg+xml" data="grafica5_barras_agrupadas.svg" width="760" height="480">
+        <img src="grafica5_barras_agrupadas.svg" alt="Grouped bar chart: genre × region"/>
+      </object>
+    </div>
+    <div class="analysis">
+      <h3>Analysis</h3>
+      <p>
+        This grouped bar chart represents two categorical variables simultaneously: genre (groups)
+        and region (bar color within each group). It reveals how regional preferences shape sales
+        for each genre category.
+      </p>
+      <ul>
+        <li><strong>North America (blue)</strong> leads in Action, Sports and Shooter by a wide margin.</li>
+        <li><strong>Japan (red)</strong> is strongest in RPGs, nearly matching Europe — a cultural pattern consistent with the popularity of series like Final Fantasy and Dragon Quest.</li>
+        <li><strong>Shooter</strong> shows the most extreme regional skew: NA is 202.5M vs Japan's near-zero 3.2M.</li>
+        <li><strong>Platform</strong> games are the most geographically balanced among the top genres.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- CHART 6: Bubble -->
+  <section id="chart6">
+    <div class="section-header">
+      <span class="tag multi">Multidimensional</span>
+      <h2>6. Multidimensional Sales Analysis — Bubble Chart</h2>
+      <p>Five simultaneous variables: NA sales, EU sales, total sales, genre, and peak year</p>
+    </div>
+    <div class="chart-area">
+      <object type="image/svg+xml" data="grafica6_burbujas.svg" width="760" height="520">
+        <img src="grafica6_burbujas.svg" alt="Bubble chart: multidimensional analysis"/>
+      </object>
+    </div>
+    <div class="analysis">
+      <h3>Analysis</h3>
+      <p>
+        The bubble chart encodes <strong>five variables simultaneously</strong>: NA sales (X),
+        EU sales (Y), total global sales (bubble size), genre (color and label),
+        and peak year (text inside bubble).
+      </p>
+      <ul>
+        <li><strong>Action</strong> occupies the top-right corner with the largest bubble: high in both NA and EU, and the highest total sales.</li>
+        <li><strong>RPG</strong> shows a contrasting position: low NA sales but high EU sales, and its peak was in 2000 — the early PS2 era.</li>
+        <li><strong>Shooter</strong> peaked in 2008, coinciding with Call of Duty: Modern Warfare's cultural impact.</li>
+        <li>Genres with smaller bubbles (Strategy, Simulation, Fighting) cluster in the lower-left, confirming their niche status globally.</li>
+        <li>The chart reveals that NA is the primary driver of total global sales for most genres, with the notable exception of RPG.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- CONCLUSIONS -->
+  <div class="intro-section" id="conclusions">
+    <h2>Conclusions</h2>
+    <p>
+      The analysis of global video game sales reveals several consistent patterns across all six
+      visualizations:
+    </p>
+    <ul style="font-size:14px; color:#555; padding-left:20px; margin-top:8px;">
+      <li style="margin-bottom:8px;"><strong>Action dominates globally</strong>, but this is largely driven by North American demand. The genre's lead is structural across all chart types.</li>
+      <li style="margin-bottom:8px;"><strong>Strong regional preferences exist</strong>: Japan favors RPGs, North America favors Shooters, and Europe shows more balanced interest. No single genre appeals uniformly worldwide.</li>
+      <li style="margin-bottom:8px;"><strong>The market peaked in 2007–2008</strong>, driven by the Wii's mass-market appeal and the maturity of the Xbox 360 and PS3 libraries.</li>
+      <li style="margin-bottom:8px;"><strong>Platform concentration is moderate</strong>: the top six platforms split the market fairly evenly (14–22% each), suggesting healthy competition.</li>
+      <li style="margin-bottom:8px;">The bubble chart confirms that <strong>high total sales require strong NA performance</strong> — with RPG as the main exception, driven by Japan.</li>
+    </ul>
+  </div>
+
+</main>
+
+<footer>
+  Arturo &nbsp;·&nbsp; 2024181232 &nbsp;·&nbsp; Visualización de Información &nbsp;·&nbsp; TEC 2024
+  &nbsp;|&nbsp; Data: VGChartz &nbsp;|&nbsp; Format: ODViz 1.0
+</footer>
+
+</body>
+</html>
