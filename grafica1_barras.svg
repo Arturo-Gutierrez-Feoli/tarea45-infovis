@@ -5,7 +5,7 @@
 
   <metadata>
     <v:table name="ventas_genero"
-             description="Global video game sales by genre (millions of units)"
+             description="Ventas globales de videojuegos por género (millones de unidades)"
              visualization="chart"
              version="1.0"
              created="2024-06-01T00:00:00Z"
@@ -37,16 +37,16 @@
   <!-- Title -->
   <text x="360" y="36" text-anchor="middle" font-family="Arial,sans-serif"
         font-size="18" font-weight="bold" fill="#212121">
-    Global Video Game Sales by Genre
+    Ventas Globales de Videojuegos por Género
   </text>
   <text x="360" y="56" text-anchor="middle" font-family="Arial,sans-serif"
         font-size="12" fill="#757575">
-    Total units sold worldwide (millions)
+    Total de unidades vendidas en el mundo (millones)
   </text>
 
   <!-- Y axis label -->
   <text x="18" y="260" text-anchor="middle" font-family="Arial,sans-serif"
-        font-size="11" fill="#555" transform="rotate(-90,18,260)">Sales (millions)</text>
+        font-size="11" fill="#555" transform="rotate(-90,18,260)">Ventas (millones)</text>
 
   <!-- Grid lines -->
   <g stroke="#e0e0e0" stroke-width="1">
@@ -106,6 +106,6 @@
 
   <!-- Source -->
   <text x="700" y="470" text-anchor="end" font-family="Arial,sans-serif"
-        font-size="9" fill="#bdbdbd">Source: VGChartz</text>
+        font-size="9" fill="#bdbdbd">Fuente: VGChartz</text>
 
 </svg>

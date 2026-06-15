@@ -6,14 +6,14 @@
   <metadata>
     <!-- Dimension table: regions -->
     <v:table name="regions" columns="id,name,color">
-      <v:row id="reg-na">na,North America,#1565C0</v:row>
-      <v:row id="reg-eu">eu,Europe,#2E7D32</v:row>
+      <v:row id="reg-na">na,Norteamérica,#1565C0</v:row>
+      <v:row id="reg-eu">eu,Europa,#2E7D32</v:row>
       <v:row id="reg-jp">jp,Japan,#B71C1C</v:row>
     </v:table>
 
     <!-- Fact table: sales per genre per region -->
     <v:table name="ventas_region_genero"
-             description="Video game sales by genre and region (millions)"
+             description="Ventas de videojuegos por género y región (millones)"
              visualization="chart"
              version="1.0"
              created="2024-06-01T00:00:00Z"
@@ -53,10 +53,10 @@
 
   <text x="380" y="36" text-anchor="middle" font-family="Arial,sans-serif"
         font-size="18" font-weight="bold" fill="#212121">
-    Video Game Sales by Genre and Region
+    Ventas de Videojuegos por Género y Región
   </text>
   <text x="380" y="56" text-anchor="middle" font-family="Arial,sans-serif"
-        font-size="12" fill="#757575">Grouped bars: North America, Europe, Japan (millions)</text>
+        font-size="12" fill="#757575">Barras agrupadas: Norteamérica, Europa, Japón (millones)</text>
 
   <text x="18" y="260" text-anchor="middle" font-family="Arial,sans-serif"
         font-size="11" fill="#555" transform="rotate(-90,18,260)">Sales (millions)</text>
@@ -134,12 +134,12 @@
 
   <!-- Legend -->
   <rect x="88"  y="432" width="14" height="14" fill="#1565C0" rx="2"/>
-  <text x="107" y="444" font-family="Arial,sans-serif" font-size="11" fill="#212121">North America</text>
+  <text x="107" y="444" font-family="Arial,sans-serif" font-size="11" fill="#212121">Norteamérica</text>
   <rect x="220" y="432" width="14" height="14" fill="#2E7D32" rx="2"/>
-  <text x="239" y="444" font-family="Arial,sans-serif" font-size="11" fill="#212121">Europe</text>
+  <text x="239" y="444" font-family="Arial,sans-serif" font-size="11" fill="#212121">Europa</text>
   <rect x="300" y="432" width="14" height="14" fill="#B71C1C" rx="2"/>
   <text x="319" y="444" font-family="Arial,sans-serif" font-size="11" fill="#212121">Japan</text>
 
   <text x="740" y="470" text-anchor="end" font-family="Arial,sans-serif"
-        font-size="9" fill="#bdbdbd">Source: VGChartz</text>
+        font-size="9" fill="#bdbdbd">Fuente: VGChartz</text>
 </svg>
